@@ -34,7 +34,7 @@ This project implements a high-performance CUDA-based path tracer that leverages
 ### Direct Lighting
 No Direct Lighting | With Direct Lighting
 :-------------------------:|:-------------------------:
-![Indirect Only](img/noDL.png) | ![Direct+Indirect](img/refractive.png)
+![Indirect Only](img/nodof.png) | ![Direct+Indirect](img/refractive.png)
 
 **Overview**: Direct lighting significantly reduces noise and improves convergence by sampling light sources directly with proper shadow ray testing and Monte Carlo integration.
 /
