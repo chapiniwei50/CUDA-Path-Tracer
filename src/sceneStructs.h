@@ -85,3 +85,8 @@ struct ShadeableIntersection
   glm::vec3 surfaceNormal;
   int materialId;
 };
+
+struct GuiDataContainer {
+    float TracedDepth = 0;
+    int ActivePaths = 0;
+};

@@ -37,12 +37,18 @@ void Scene::loadFromJSON(const std::string& jsonName)
     json data = json::parse(f);
     const auto& materialsData = data["Materials"];
     std::unordered_map<std::string, uint32_t> MatNameToID;
+    // In the material parsing section, update it to look like this:
     for (const auto& item : materialsData.items())
     {
         const auto& name = item.key();
         const auto& p = item.value();
         Material newMaterial{};
-        // TODO: handle materials loading differently
+
+        // Initialize all flags to false
+        newMaterial.hasReflective = false;
+        newMaterial.hasRefractive = false;
+        newMaterial.indexOfRefraction = 1.0f; // Default IOR for air
+
         if (p["TYPE"] == "Diffuse")
         {
             const auto& col = p["RGB"];
@@ -58,7 +64,16 @@ void Scene::loadFromJSON(const std::string& jsonName)
         {
             const auto& col = p["RGB"];
             newMaterial.color = glm::vec3(col[0], col[1], col[2]);
+            newMaterial.hasReflective = true; // ADD THIS LINE
         }
+        else if (p["TYPE"] == "Refractive")  // ADD THIS NEW CASE
+        {
+            const auto& col = p["RGB"];
+            newMaterial.color = glm::vec3(col[0], col[1], col[2]);
+            newMaterial.hasRefractive = true;
+            newMaterial.indexOfRefraction = p["IOR"];
+        }
+
         MatNameToID[name] = materials.size();
         materials.emplace_back(newMaterial);
     }
@@ -111,14 +126,15 @@ void Scene::loadFromJSON(const std::string& jsonName)
     float fovx = (atan(xscaled) * 180) / PI;
     camera.fov = glm::vec2(fovx, fovy);
 
+
+
+    camera.view = glm::normalize(camera.lookAt - camera.position);
     camera.right = glm::normalize(glm::cross(camera.view, camera.up));
     camera.pixelLength = glm::vec2(2 * xscaled / (float)camera.resolution.x,
         2 * yscaled / (float)camera.resolution.y);
-
-    camera.view = glm::normalize(camera.lookAt - camera.position);
-
     //set up render camera stuff
     int arraylen = camera.resolution.x * camera.resolution.y;
     state.image.resize(arraylen);
     std::fill(state.image.begin(), state.image.end(), glm::vec3());
 }
+

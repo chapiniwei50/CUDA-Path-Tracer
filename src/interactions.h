@@ -1,10 +1,12 @@
 #pragma once
 
-#include "sceneStructs.h"
-
+#include "intersections.h"
 #include <glm/glm.hpp>
-
 #include <thrust/random.h>
+
+#define PI 3.1415926535897932384626422832795028841971f
+#define TWO_PI 6.2831853071795864769252867665590057683943f
+#define SQRT_OF_ONE_THIRD 0.5773502691896257645091487805019574556476f
 
 // CHECKITOUT
 /**
@@ -12,7 +14,7 @@
  * Used for diffuse lighting.
  */
 __host__ __device__ glm::vec3 calculateRandomDirectionInHemisphere(
-    glm::vec3 normal, 
+    glm::vec3 normal,
     thrust::default_random_engine& rng);
 
 /**
@@ -46,3 +48,8 @@ __host__ __device__ void scatterRay(
     glm::vec3 normal,
     const Material& m,
     thrust::default_random_engine& rng);
+
+
+__host__ __device__ glm::vec3 reflect(const glm::vec3& I, const glm::vec3& N);
+__host__ __device__ bool refract(const glm::vec3& I, const glm::vec3& N, float ior, glm::vec3& refracted);
+__host__ __device__ float schlick(float cosine, float ior);
