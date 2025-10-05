@@ -34,7 +34,7 @@ This project implements a high-performance CUDA-based path tracer that leverages
 ### Direct Lighting
 No Direct Lighting | With Direct Lighting
 :-------------------------:|:-------------------------:
-![Indirect Only](img/nodof.png) | ![Direct+Indirect](img/refractive.png)
+![Indirect Only](img/noDL.png) | ![Direct+Indirect](img/refractive.png)
 
 **Overview**: Direct lighting significantly reduces noise and improves convergence by sampling light sources directly with proper shadow ray testing and Monte Carlo integration.
 /
@@ -69,7 +69,7 @@ Diffuse Materials Only | With Refractive Materials
 ### Depth of Field
 No Depth of Field | With Depth of Field
 :-------------------------:|:-------------------------:
-![No DOF](img/nodof.png) | ![With DOF](img/dof.png)
+![No DOF](img/no_dof.png) | ![With DOF](img/dof.png)
 
 **Overview**: Physically-based depth of field using thin lens model with configurable aperture size and focal distance, creating realistic camera blur effects.
 
