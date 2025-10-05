@@ -1,6 +1,8 @@
+
+USING THREE LATE DAYS
 # CUDA Path Tracer
 ================
-**USING THREE LATE DAYS**
+
 **University of Pennsylvania, CIS 565: GPU Programming and Architecture, Project 3**
 
 *Cindy Wei*  
